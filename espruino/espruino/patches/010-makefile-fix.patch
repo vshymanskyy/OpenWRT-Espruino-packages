@@ -1,0 +1,73 @@
+--- a/Makefile
++++ b/Makefile
+@@ -66,10 +66,10 @@ endif
+ 
+ INCLUDE=-I$(ROOT) -I$(ROOT)/targets -I$(ROOT)/src -I$(ROOT)/gen
+ LIBS=
+-DEFINES=
+-CFLAGS=-Wall -Wextra -Wconversion -Werror=implicit-function-declaration
+-LDFLAGS=-Winline
+-OPTIMIZEFLAGS=
++DEFINES?=
++CFLAGS?=-Wall -Wextra -Wconversion -Werror=implicit-function-declaration
++LDFLAGS?=-Winline
++OPTIMIZEFLAGS?=
+ #-fdiagnostics-show-option - shows which flags can be used with -Werror
+ DEFINES+=-DGIT_COMMIT=$(shell git log -1 --format="%H")
+ 
+@@ -400,6 +400,13 @@ LINUX=1
+ USE_FILESYSTEM=1
+ USE_GRAPHICS=1
+ USE_NET=1
++else ifdef OPENWRT
++BOARD=LINUX
++LINUX=1
++USE_FILESYSTEM=1
++USE_GRAPHICS=1
++USE_NET=1
++
+ else ifdef LCTECH_STM32F103RBT6
+ EMBEDDED=1
+ SAVE_ON_FLASH=1
+@@ -1093,9 +1100,8 @@ INCLUDE += -I$(ROOT)/targets/linux
+ SOURCES +=                              \
+ targets/linux/main.c                    \
+ targets/linux/jshardware.c
+-LIBS += -lm # maths lib
+-LIBS += -lpthread # thread lib for input processing
+-LIBS += -lstdc++
++
++LIBS = -nodefaultlibs -lm -luClibc++ -lc -lgcc -lgcc_s -lpthread
+ endif
+ 
+ ifdef NUCLEO
+@@ -1126,13 +1132,13 @@ ifdef LINKER_FILE
+ LDFLAGS += -T$(LINKER_FILE)
+ endif
+ 
+-export CC=$(CCPREFIX)gcc
+-export LD=$(CCPREFIX)gcc
+-export AR=$(CCPREFIX)ar
+-export AS=$(CCPREFIX)as
+-export OBJCOPY=$(CCPREFIX)objcopy
+-export OBJDUMP=$(CCPREFIX)objdump
+-export GDB=$(CCPREFIX)gdb
++#export CC=$(CCPREFIX)gcc
++#export LD=$(CC)
++#export AR=$(CCPREFIX)ar
++#export AS=$(CCPREFIX)as
++#export OBJCOPY=$(CCPREFIX)objcopy
++#export OBJDUMP=$(CCPREFIX)objdump
++#export GDB=$(CCPREFIX)gdb
+ 
+ 
+ .PHONY:  proj
+@@ -1170,7 +1176,7 @@ $(PLATFORM_CONFIG_FILE): boards/$(BOARD)
+ 	$(Q)python scripts/build_platform_config.py $(BOARD)
+ 
+ compile=$(CC) $(CFLAGS) $(DEFINES) $< -o $@
+-link=$(LD) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
++link=$(LD) -o $@ $(OBJS) $(LDFLAGS) $(LIBS)
+ obj_dump=$(OBJDUMP) -x -S $(PROJ_NAME).elf > $(PROJ_NAME).lst
+ obj_to_bin=$(OBJCOPY) -O $1 $(PROJ_NAME).elf $(PROJ_NAME).$2
+ 
