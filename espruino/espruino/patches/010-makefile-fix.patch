@@ -25,11 +25,19 @@
 +USE_FILESYSTEM=1
 +USE_GRAPHICS=1
 +USE_NET=1
-+
++DEFINES += -DSYSFS_GPIO_DIR="\"/sys/class/gpio\""
  else ifdef LCTECH_STM32F103RBT6
  EMBEDDED=1
  SAVE_ON_FLASH=1
-@@ -1093,9 +1100,8 @@ INCLUDE += -I$(ROOT)/targets/linux
+@@ -453,6 +460,7 @@ USE_FILESYSTEM=1
+ USE_GRAPHICS=1
+ USE_NET=1
+ else
++DEFINES += -DSYSFS_GPIO_DIR="\"/sys/class/gpio\""
+ BOARD=LINUX
+ LINUX=1
+ USE_FILESYSTEM=1
+@@ -1093,9 +1101,8 @@ INCLUDE += -I$(ROOT)/targets/linux
  SOURCES +=                              \
  targets/linux/main.c                    \
  targets/linux/jshardware.c
@@ -41,7 +49,7 @@
  endif
  
  ifdef NUCLEO
-@@ -1126,13 +1132,13 @@ ifdef LINKER_FILE
+@@ -1126,13 +1133,13 @@ ifdef LINKER_FILE
  LDFLAGS += -T$(LINKER_FILE)
  endif
  
@@ -62,7 +70,7 @@
  
  
  .PHONY:  proj
-@@ -1170,7 +1176,7 @@ $(PLATFORM_CONFIG_FILE): boards/$(BOARD)
+@@ -1170,7 +1177,7 @@ $(PLATFORM_CONFIG_FILE): boards/$(BOARD)
  	$(Q)python scripts/build_platform_config.py $(BOARD)
  
  compile=$(CC) $(CFLAGS) $(DEFINES) $< -o $@
