@@ -8,15 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=espruino
-PKG_VERSION:=1.80.0-git
+PKG_VERSION:=1.81.0-git
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=git://github.com/espruino/Espruino.git
-PKG_SOURCE_VERSION:=44f2fc15e94e3eac6cb0cbd908b66ec8886e9d88
+PKG_SOURCE_VERSION:=master
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
-PKG_MIRROR_MD5SUM:=66a728a3cb8dad0e3773035c4049eb5f
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -26,7 +25,7 @@ define Package/espruino
   CATEGORY:=Languages
   TITLE:=A compact JavaScript interpreter
   URL:=http://www.espruino.com
-  DEPENDS:=+libpthread +librt +uclibcxx
+  DEPENDS:=+libpthread +librt
 endef
 
 define Package/espruino/description
@@ -38,7 +37,8 @@ endef
 
 MAKE_FLAGS += \
 	LD="$(TARGET_CC)" \
-	RELEASE=1 V=1
+	RELEASE=1 V=1 \
+	OPENWRT_UCLIBC=1
 
 define Package/espruino/install
 	$(INSTALL_DIR) $(1)/usr/bin
