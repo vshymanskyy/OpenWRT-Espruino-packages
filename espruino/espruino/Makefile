@@ -25,7 +25,7 @@ define Package/espruino
   CATEGORY:=Languages
   TITLE:=A compact JavaScript interpreter
   URL:=http://www.espruino.com
-  DEPENDS:=+libpthread +librt
+  DEPENDS:=+libpthread
 endef
 
 define Package/espruino/description
@@ -35,10 +35,9 @@ define Package/espruino/description
  server, filesystem, as well as GPIO support.
 endef
 
-MAKE_FLAGS += \
-	LD="$(TARGET_CC)" \
-	RELEASE=1 V=1 \
-	OPENWRT_UCLIBC=1
+MAKE_FLAGS += LD="$(TARGET_CC)"
+MAKE_FLAGS += RELEASE=1
+MAKE_FLAGS += OPENWRT_UCLIBC=1
 
 define Package/espruino/install
 	$(INSTALL_DIR) $(1)/usr/bin
