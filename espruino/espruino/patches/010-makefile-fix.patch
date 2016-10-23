@@ -1,25 +1,25 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -75,12 +75,12 @@ ifdef ESP8266_BOARD
- ESP8266_512KB=1
+@@ -83,12 +83,12 @@ ifdef ESP8266_BOARD
+ MAKEFLAGS=-j5 # multicore
  endif
  
--INCLUDE=-I$(ROOT) -I$(ROOT)/targets -I$(ROOT)/src -I$(ROOT)/gen
+-INCLUDE=-I$(ROOT) -I$(ROOT)/targets -I$(ROOT)/src -I$(GENDIR)
 -LIBS=
 -DEFINES=
--CFLAGS=-Wall -Wextra -Wconversion -Werror=implicit-function-declaration
+-CFLAGS=-Wall -Wextra -Wconversion -Werror=implicit-function-declaration -fno-strict-aliasing
 -LDFLAGS=-Winline
 -OPTIMIZEFLAGS=
-+INCLUDE?=-I$(ROOT) -I$(ROOT)/targets -I$(ROOT)/src -I$(ROOT)/gen
++INCLUDE?=-I$(ROOT) -I$(ROOT)/targets -I$(ROOT)/src -I$(GENDIR)
 +LIBS?=
 +DEFINES?=
-+CFLAGS?=-Wall -Wextra -Wconversion -Werror=implicit-function-declaration
++CFLAGS?=-Wall -Wextra -Wconversion -Werror=implicit-function-declaration -fno-strict-aliasing
 +LDFLAGS?=-Winline
 +OPTIMIZEFLAGS?=
  #-fdiagnostics-show-option - shows which flags can be used with -Werror
  DEFINES+=-DGIT_COMMIT=$(shell git log -1 --format="%H")
  
-@@ -598,6 +598,7 @@ USE_NET=1
+@@ -655,6 +655,7 @@ USE_NET=1
  
  else
  BOARD=LINUX
