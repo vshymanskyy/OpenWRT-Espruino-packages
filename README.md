@@ -8,5 +8,8 @@ echo "src-git espruino git://github.com/vshymanskyy/OpenWRT-Espruino-packages.gi
 ./scripts/feeds update -a
 ./scripts/feeds install -p espruino -a
 make menuconfig
+```
+Select ```Languages -> JavaScript -> espruino```
+```
 make -j 9
 ```
