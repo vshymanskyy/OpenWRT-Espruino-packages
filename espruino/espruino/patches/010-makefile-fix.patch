@@ -1,6 +1,6 @@
---- a/Makefile
+--- a/Makefile.orig
 +++ b/Makefile
-@@ -83,12 +83,12 @@ ifdef ESP8266_BOARD
+@@ -54,12 +54,12 @@ ifndef SINGLETHREAD
  MAKEFLAGS=-j5 # multicore
  endif
  
@@ -19,11 +19,11 @@
  #-fdiagnostics-show-option - shows which flags can be used with -Werror
  DEFINES+=-DGIT_COMMIT=$(shell git log -1 --format="%H")
  
-@@ -655,6 +655,7 @@ USE_NET=1
+@@ -136,6 +136,7 @@ ifeq ($(BOARD),)
+   #$(info *           To build, use BOARD=my_board make               *)
+   #$(info *************************************************************)
+   BOARD=LINUX
++  DEFINES+=-DSYSFS_GPIO_DIR="\"/sys/class/gpio\""
+  endif
+ endif
  
- else
- BOARD=LINUX
-+DEFINES += -DSYSFS_GPIO_DIR="\"/sys/class/gpio\""
- LINUX=1
- USE_FILESYSTEM=1
- USE_HASHLIB=1
