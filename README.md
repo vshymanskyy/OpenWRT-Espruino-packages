@@ -1,7 +1,5 @@
 # OpenWRT-Espruino-packages
-Espruino package for OpenWRT
-
-Espruino version: 1.94
+Espruino v1.94 package for OpenWRT
 
 ## Build from source
 
@@ -25,4 +23,3 @@ For a rebuild:
 ```
 make package/espruino/{clean,compile,install} V=s
 ```
-
