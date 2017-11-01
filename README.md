@@ -1,5 +1,10 @@
-# OpenWRT-Espruino-packages
-Espruino v1.94 package for OpenWRT
+# Espruino for OpenWRT
+
+This is **Espruino v1.94** package for **OpenWRT**.
+
+ Espruino is an extremely compact JavaScript interpreter. Originally
+ designed for microcontrollers, it runs on OpenWRT while using a very small
+ amount of RAM.
 
 ## Build from source
 
