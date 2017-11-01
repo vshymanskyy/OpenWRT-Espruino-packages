@@ -14,12 +14,12 @@ Select ```Languages -> JavaScript -> espruino```
 make -j9
 ```
 
-To build just Espruino:
+## Build just Espruino
 ```
 make package/espruino/compile V=s
 ```
 
-For a rebuild:
+## Rebuild Espruino
 ```
 make package/espruino/{clean,compile,install} V=s
 ```
